@@ -1,0 +1,27 @@
+{
+  "name": "react-app",
+  "version": "1.0.0",
+  "description": "react",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc -w -p tsconfig.json",
+    "dev": "node ./dist/server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devlee/react-app.git"
+  },
+  "author": "devlee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devlee/react-app/issues"
+  },
+  "homepage": "https://github.com/devlee/react-app#readme",
+  "dependencies": {
+    "koa": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.39",
+    "typescript": "^2.5.3"
+  }
+}

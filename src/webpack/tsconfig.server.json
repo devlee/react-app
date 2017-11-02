@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react"
+  },
+  "include": [
+    "../../src/client/**/*",
+    "../../src/server/bundle.tsx"
+  ]
+}

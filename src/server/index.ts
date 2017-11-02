@@ -12,10 +12,14 @@ import * as compress from 'koa-compress';
 
 import webpackDevServer from '../webpack/webpack-dev-server';
 
+let bundle;
+const bundleFile = path.join(__dirname, '../../bundle/server-bundle.js');
+
 const app = new Koa();
 const router = new KoaRouter();
 
 router.get('/*', (ctx: Koa.Context, next) => { // 配置一个简单的get通配路由
+  const html = bundle ? bundle.render() : ''; // 获得渲染出的html字符串
   ctx.type = 'html';
   ctx.body = `
     <!DOCTYPE html>
@@ -24,7 +28,7 @@ router.get('/*', (ctx: Koa.Context, next) => { // 配置一个简单的get通配
         <title>react-app</title>
       </head>
       <body>
-        <div id="app"></div>
+        <div id="app">${html}</div>
         <script src="/assets/vendor.js"></script>
         <script src="/assets/client.js"></script>
       </body>
@@ -34,7 +38,10 @@ router.get('/*', (ctx: Koa.Context, next) => { // 配置一个简单的get通配
 });
 
 if (isDev) {
-  webpackDevServer(app); // 仅在开发环境使用
+  webpackDevServer(app, () => {
+    delete require.cache[require.resolve(bundleFile)];
+    bundle = require(bundleFile).default;
+  }); // 仅在开发环境使用
 }
 
 app.use(compress()); // 压缩处理
@@ -45,5 +52,5 @@ app.use(router.routes())
    .use(router.allowedMethods()); // 路由处理
 
 app.listen(port, () => {
-    console.log(`Koa app started at port ${port}`);
+  console.log(`Koa app started at port ${port}`);
 });

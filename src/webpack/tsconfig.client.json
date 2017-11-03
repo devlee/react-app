@@ -4,6 +4,7 @@
     "jsx": "react"
   },
   "include": [
+    "../../@types/**/*",
     "../../src/client/**/*"
   ]
 }

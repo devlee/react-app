@@ -16,6 +16,41 @@ export const getTsRule = (configFileName) => ({ // 传入tsconfig配置文件返
   ],
 });
 
+export const getPostCssRule = (styleLoader) => ({
+  test: /\.pcss$/,
+  use: [
+    styleLoader,
+    {
+      loader: 'css-loader',
+      options: {
+        camelCase: true,
+        importLoaders: 1,
+        localIdentName: '[path][name]---[local]---[hash:base64:5]',
+        modules: true,
+      },
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        plugins: () => [
+          require('postcss-import')({
+            path: path.join(baseDir, './src/client/style'),
+          }),
+          require('postcss-cssnext'),
+          require('postcss-nested'),
+          require('postcss-functions')({
+            functions: {
+              x2(v, u) {
+                return v * 2 + (u ? u : 'px');
+              },
+            },
+          }),
+        ],
+      },
+    },
+  ],
+});
+
 const baseConfig: webpack.Configuration = { // 客户端+服务端全环境公共配置baseConfig
   module: {
     rules: [],

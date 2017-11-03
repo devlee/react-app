@@ -4,8 +4,9 @@ import * as webpack from 'webpack';
 
 import { cloneDeep } from 'lodash'; // lodash提供的深度复制方法cloneDeep
 
-// 客户端+服务端全环境公共配置baseConfig，项目根目录路径baseDir，获取tsRule的方法getTsRule
-import baseConfig, { baseDir, getTsRule } from './base';
+// 客户端+服务端全环境公共配置baseConfig，项目根目录路径baseDir
+// 获取postCssRule的方法getPostCssRule，获取tsRule的方法getTsRule
+import baseConfig, { baseDir, getPostCssRule, getTsRule } from './base';
 
 const clientBaseConfig: webpack.Configuration = cloneDeep(baseConfig); // 客户端全环境公共配置
 
@@ -25,6 +26,9 @@ clientDevConfig.cache = false; // 禁用缓存
 clientDevConfig.output.filename = '[name].js'; // 直接使用源文件名作为打包后文件名
 (clientDevConfig.module as webpack.NewModule).rules.push(
   getTsRule('./src/webpack/tsconfig.client.json'),
+  getPostCssRule({
+    loader: 'style-loader',
+  }),
 );
 clientDevConfig.plugins.push(
   new webpack.optimize.CommonsChunkPlugin({ // 提取公共代码到vendor.js中去

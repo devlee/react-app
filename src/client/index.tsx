@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import * as ReactDOM from 'react-dom';
 
+import './style/index.pcss';
+
 import App from './component/app';
 
 function renderApp() {

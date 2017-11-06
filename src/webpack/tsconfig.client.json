@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "jsx": "react"
+    "jsx": "react",
+    "experimentalDecorators": true
   },
   "include": [
     "../../@types/**/*",

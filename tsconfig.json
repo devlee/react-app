@@ -2,6 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "target": "es5",
-    "jsx": "react"
+    "jsx": "react",
+    "experimentalDecorators": true
   }
 }

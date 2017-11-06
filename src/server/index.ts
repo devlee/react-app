@@ -19,13 +19,15 @@ const app = new Koa();
 const router = new KoaRouter();
 
 router.get('/*', (ctx: Koa.Context, next) => { // 配置一个简单的get通配路由
-  const html = bundle ? bundle.render() : ''; // 获得渲染出的html字符串
+  const renderResult = bundle ? bundle.render() : {}; // 获得渲染出的结果对象
+  const { html = '', style = '' } = renderResult;
   ctx.type = 'html';
   ctx.body = `
     <!DOCTYPE html>
     <html lang="zh-cn">
       <head>
         <title>react-app</title>
+        ${style ? `<style>${style}</style>` : ''}
       </head>
       <body>
         <div id="app">${html}</div>

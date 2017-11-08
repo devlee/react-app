@@ -4,6 +4,8 @@ import * as webpack from 'webpack';
 
 import koaWebpackDevMiddleware from './koa-webpack-dev-middleware';
 
+import koaWebpackHotMiddleware from './koa-webpack-hot-middleware';
+
 import webpackClientConfig from './client';
 
 import webpackServerConfig from './server';
@@ -31,4 +33,5 @@ export default (app: Koa, serverCompilerDone) => {
   };
 
   app.use(koaWebpackDevMiddleware(clientCompiler, devMiddlewareOptions));
+  app.use(koaWebpackHotMiddleware(clientCompiler));
 };

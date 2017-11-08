@@ -22,15 +22,27 @@ clientBaseConfig.entry = { // 入口属性配置
 
 const clientDevConfig: webpack.Configuration = cloneDeep(clientBaseConfig); // 客户端开发环境配置
 
+((clientDevConfig.entry as any).client as string[]).unshift(
+  'webpack-hot-middleware/client',
+); // 热重载配置
+((clientDevConfig.entry as any).vendor as string[]).unshift(
+  'react-hot-loader/patch',
+); // 热重载配置
 clientDevConfig.cache = false; // 禁用缓存
 clientDevConfig.output.filename = '[name].js'; // 直接使用源文件名作为打包后文件名
+
+const tsRule = getTsRule('./src/webpack/tsconfig.client.json');
+(tsRule.use as object[]).unshift({
+  loader: 'react-hot-loader/webpack',
+});
 (clientDevConfig.module as webpack.NewModule).rules.push(
-  getTsRule('./src/webpack/tsconfig.client.json'),
+  tsRule,
   getPostCssRule({
     loader: 'style-loader',
   }),
 );
 clientDevConfig.plugins.push(
+  new webpack.HotModuleReplacementPlugin(), // 热重载配置
   new webpack.optimize.CommonsChunkPlugin({ // 提取公共代码到vendor.js中去
     filename: 'vendor.js',
     name: 'vendor',

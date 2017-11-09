@@ -23,7 +23,7 @@ clientBaseConfig.entry = { // 入口属性配置
 const clientDevConfig: webpack.Configuration = cloneDeep(clientBaseConfig); // 客户端开发环境配置
 
 ((clientDevConfig.entry as any).client as string[]).unshift(
-  'webpack-hot-middleware/client',
+  'webpack-hot-middleware/client?timeout=2000',
 ); // 热重载配置
 ((clientDevConfig.entry as any).vendor as string[]).unshift(
   'react-hot-loader/patch',

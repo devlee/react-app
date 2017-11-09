@@ -9,7 +9,7 @@ import * as stream from 'stream';
 export default (compiler: webpack.Compiler, opts?: webpackHotMiddleware.Options) => {
   const hotMiddleware = webpackHotMiddleware(compiler, opts);
 
-  return (ctx: Koa.Context, next: () => Promise<any>): any => {
+  const koaWebpackHotMiddleware = (ctx: Koa.Context, next: () => Promise<any>): any => {
     const streamer = new stream.PassThrough();
     ctx.body = streamer;
     const res: any = {};
@@ -20,4 +20,8 @@ export default (compiler: webpack.Compiler, opts?: webpackHotMiddleware.Options)
     };
     return hotMiddleware(ctx.req, res, next);
   };
+
+  (koaWebpackHotMiddleware as any).hotMiddleware = hotMiddleware;
+
+  return koaWebpackHotMiddleware;
 };

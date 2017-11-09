@@ -14,9 +14,10 @@ export default (app: Koa, serverCompilerDone) => {
   const clientDevConfig = webpackClientConfig.development;
   const serverDevConfig = webpackServerConfig.development;
   const clientCompiler = webpack(clientDevConfig);
+  let hotMiddleware;
   clientCompiler.plugin('done', () => {
     const serverCompiler = webpack(serverDevConfig);
-    serverCompiler.plugin('done', serverCompilerDone);
+    serverCompiler.plugin('done', () => serverCompilerDone.call(null, hotMiddleware));
     serverCompiler.run((err, stats) => {
       if (err) {
         console.error(stats);
@@ -32,6 +33,11 @@ export default (app: Koa, serverCompilerDone) => {
     },
   };
 
+  const koaWebpackHotMiddlewareObject = koaWebpackHotMiddleware(clientCompiler, {
+    heartbeat: 1000,
+  });
+  hotMiddleware = (koaWebpackHotMiddlewareObject as any).hotMiddleware;
+
   app.use(koaWebpackDevMiddleware(clientCompiler, devMiddlewareOptions));
-  app.use(koaWebpackHotMiddleware(clientCompiler));
+  app.use(koaWebpackHotMiddlewareObject);
 };

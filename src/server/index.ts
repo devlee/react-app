@@ -17,6 +17,8 @@ const bundleFile = path.join(__dirname, '../../bundle/server-bundle.js');
 
 const app = new Koa();
 const router = new KoaRouter();
+const hmrKey = Math.random() * 100000 + '';
+let hmrKeyT;
 
 router.get('/*', (ctx: Koa.Context, next) => { // 配置一个简单的get通配路由
   const renderResult = bundle ? bundle.render() : {}; // 获得渲染出的结果对象
@@ -40,9 +42,15 @@ router.get('/*', (ctx: Koa.Context, next) => { // 配置一个简单的get通配
 });
 
 if (isDev) {
-  webpackDevServer(app, () => {
+  webpackDevServer(app, (hotMiddleware) => {
     delete require.cache[require.resolve(bundleFile)];
     bundle = require(bundleFile).default;
+    if (hotMiddleware && typeof hotMiddleware.publish === 'function') {
+      global.clearInterval(hmrKeyT);
+      hmrKeyT = global.setInterval(() => {
+        hotMiddleware.publish({ action: 'bundled', hmrKey });
+      }, 1000);
+    }
   }); // 仅在开发环境使用
 }
 

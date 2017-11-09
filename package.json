@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc -w -p tsconfig.json",
-    "dev": "node ./dist/server/index.js"
+    "dev": "nodemon ./dist/server/index.js"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "awesome-typescript-loader": "^3.2.3",
     "css-loader": "^0.28.7",
     "isomorphic-style-loader": "^4.0.0",
+    "nodemon": "^1.12.1",
     "postcss-cssnext": "^3.0.2",
     "postcss-functions": "^3.0.0",
     "postcss-import": "^11.0.0",

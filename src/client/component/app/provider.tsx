@@ -22,7 +22,7 @@ class AppProvider extends React.PureComponent<any, any> {
   }
 
   public render() {
-    return this.props.children || null;
+    return ((this.props.children || null) as any);
   }
 }
 

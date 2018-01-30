@@ -3,6 +3,7 @@
     "outDir": "./dist/",
     "target": "es5",
     "jsx": "react",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "lib": ["es2015", "dom"]
   }
 }

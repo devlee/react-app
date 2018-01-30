@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc -w -p tsconfig.json",
-    "dev": "nodemon ./dist/server/index.js"
+    "dev": "nodemon ./dist/server/index.js",
+    "p": "node ./dist/server/p.js"
   },
   "repository": {
     "type": "git",
@@ -18,13 +19,18 @@
   },
   "homepage": "https://github.com/devlee/react-app#readme",
   "dependencies": {
+    "axios": "^0.17.1",
+    "cheerio": "^1.0.0-rc.2",
+    "echarts": "^4.0.2",
+    "echarts-for-react": "^2.0.6",
     "koa": "^2.3.0",
     "koa-compress": "^2.0.0",
     "koa-favicon": "^2.0.0",
     "koa-router": "^7.2.1",
     "lodash": "^4.17.4",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "request": "^2.83.0"
   },
   "devDependencies": {
     "@types/koa": "^2.0.39",

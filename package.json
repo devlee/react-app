@@ -6,7 +6,8 @@
   "scripts": {
     "tsc": "tsc -w -p tsconfig.json",
     "dev": "nodemon ./dist/server/index.js",
-    "p": "node ./dist/server/p.js"
+    "p": "node ./dist/server/p.js",
+    "h": "node ./dist/server/h.js"
   },
   "repository": {
     "type": "git",

@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as styles from './style.pcss';
 
 /* tslint:disable-next-line no-submodule-imports */
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import * as withStyles from 'isomorphic-style-loader/withStyles';
 
 @withStyles(styles)
 class AppContent extends React.PureComponent {

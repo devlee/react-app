@@ -11,15 +11,17 @@ import * as commonStyles from '../client/style/index.pcss';
 
 import { AppContainer } from 'react-hot-loader';
 
+import * as StyleContext from 'isomorphic-style-loader/StyleContext';
+
 export default {
   render() {
     const css = [commonStyles._getCss()];
-    const context = { insertCss: (...styles) => styles.forEach((s) => css.push(s._getCss())) };
+    const insertCss = (...styles) => styles.forEach((s) => css.push(s._getCss()));
     const html = renderToString(
       <AppContainer>
-        <AppProvider context={context}>
+        <StyleContext.Provider value={{ insertCss }}>
           <AppContent />
-        </AppProvider>
+        </StyleContext.Provider>
       </AppContainer>,
     );
     const style = css.join('');

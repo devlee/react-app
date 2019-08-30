@@ -35,18 +35,30 @@ const tsRule = getTsRule('./src/webpack/tsconfig.client.json');
 (tsRule.use as object[]).unshift({
   loader: 'react-hot-loader/webpack',
 });
-(clientDevConfig.module as webpack.NewModule).rules.push(
+clientDevConfig.module.rules.push(
   tsRule,
   getPostCssRule({
     loader: 'style-loader',
   }),
 );
+clientDevConfig.optimization = {
+  splitChunks: {
+    cacheGroups: {
+      vendor: {
+        name: 'vendor',
+        chunks: 'initial',
+        priority: 2,
+        minChunks: 2,
+      }
+    }
+  }
+};
 clientDevConfig.plugins.push(
   new webpack.HotModuleReplacementPlugin(), // 热重载配置
-  new webpack.optimize.CommonsChunkPlugin({ // 提取公共代码到vendor.js中去
-    filename: 'vendor.js',
-    name: 'vendor',
-  }),
+  // new webpack.optimize.CommonsChunkPlugin({ // 提取公共代码到vendor.js中去
+  //   filename: 'vendor.js',
+  //   name: 'vendor',
+  // }),
   new webpack.NoEmitOnErrorsPlugin(), // 编译出错时跳过输出阶段，以保证输出的资源不包含错误。
 );
 

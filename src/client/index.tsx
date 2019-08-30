@@ -10,7 +10,7 @@ import App from './component/app';
 
 function renderApp(Comp) {
   ReactDOM.hydrate(
-    <AppContainer warnings={false}>
+    <AppContainer>
       <Comp />
     </AppContainer>,
     document.getElementById('app'),

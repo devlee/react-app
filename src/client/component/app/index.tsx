@@ -4,12 +4,16 @@ import AppProvider from './provider';
 
 import AppContent from './content';
 
+import * as StyleContext from 'isomorphic-style-loader/StyleContext'
+
+const insertCss = () => '';
+
 class App extends React.PureComponent {
   public render() {
     return (
-      <AppProvider>
+      <StyleContext.Provider value={{ insertCss }}>
         <AppContent />
-      </AppProvider>
+      </StyleContext.Provider>
     );
   }
 }

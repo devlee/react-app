@@ -23,10 +23,10 @@ export const getPostCssRule = (styleLoader) => ({
     {
       loader: 'css-loader',
       options: {
-        camelCase: true,
-        importLoaders: 1,
-        localIdentName: '[path][name]---[local]---[hash:base64:5]',
-        modules: true,
+        localsConvention: 'camelCase',
+        modules: {
+          localIdentName: '[path][name]__[local]--[hash:base64:5]',
+        },
       },
     },
     {
@@ -52,6 +52,7 @@ export const getPostCssRule = (styleLoader) => ({
 });
 
 const baseConfig: webpack.Configuration = { // 客户端+服务端全环境公共配置baseConfig
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   module: {
     rules: [],
   },

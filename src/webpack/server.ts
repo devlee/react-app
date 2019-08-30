@@ -29,7 +29,7 @@ const serverDevConfig: webpack.Configuration = cloneDeep(serverBaseConfig); // �
 
 serverDevConfig.cache = false; // 禁用缓存
 serverDevConfig.output.filename = '[name].js'; // 使用源文件名作为打包后文件名
-(serverDevConfig.module as webpack.NewModule).rules.push(
+serverDevConfig.module.rules.push(
   getTsRule('./src/webpack/tsconfig.server.json'),
   getPostCssRule({
     loader: 'isomorphic-style-loader',

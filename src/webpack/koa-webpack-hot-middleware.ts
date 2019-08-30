@@ -18,6 +18,7 @@ export default (compiler: webpack.Compiler, opts?: webpackHotMiddleware.Options)
       ctx.state = state;
       ctx.set(headers);
     };
+    res.end = () => {}
     return hotMiddleware(ctx.req, res, next);
   };
 
